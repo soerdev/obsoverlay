@@ -1,0 +1,96 @@
+@media screen and (max-width: 800px) {
+    .page { width: 100vw !important; }
+  }
+  
+  html {
+    --primary-clr:#FF9700;
+    --primary-text-stroke: #9e2a00;
+    --text-clr:#C8A080;
+  
+    --form-input-background: #fff;
+    --button-primary-background: #FF9700;
+    --button-primary-background-hover: #FFcc00;
+    --button-color: #fff;
+    --text-input-color: #333;
+    height: 100%;
+  }
+  
+  body {
+    padding: 0;
+    margin: 0;
+    font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+  
+  body.main {
+    background: url(../images/logo.png) 50% 50% no-repeat #000;
+    background-size: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    color: var(--text-clr);
+  }
+  
+  body.greenscreen {
+    background: none;
+    color: white;
+  }
+  
+  .message-body {
+    color: var(--primary-clr);
+    font-size: 2em;
+    margin: 0 auto;
+    padding: 0.5em;
+    background-color:rgba(0, 0, 0, 0.8);
+  }
+  
+  .message-body p {
+    -webkit-text-stroke: var(--primary-text-stroke) 1px;
+    text-align: center;
+  }
+  
+  h1,h2,h3,h4 {
+      color: var(--primary-clr);
+  }
+  
+  a {
+    color: #ff9720;
+  }
+  
+  
+  .copyright {
+    position: absolute;
+    color: var(--primary-clr);
+    bottom: 0;
+    right: 0;
+  }
+  
+  .page {
+      background:rgba(58,63,68,0.5);
+    border-radius: 5px;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;  
+    flex-direction: row;
+    padding: 2em;
+    flex-wrap: wrap;
+    width: 40vw;
+  }
+  
+  .page p { 
+    flex: 1 1 100%;
+  }
+  
+  .welcome { 
+    flex: 1 1 10em;
+  }
+  .donate {
+    flex: 3 3 20em;
+    
+  }
+  
+  .welcome, .donate {
+    padding: 0 1em;
+  }
+  
+  
