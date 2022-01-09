@@ -1,0 +1,20 @@
+version: '3'
+services:
+  development:
+    environment:
+    - NODE_ENV=development
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /usr/server
+    ports:
+     - 8000:8000
+     - 8001:8001
+     - 8002:8002
+     - 9229:9229
+    tty: true
+    volumes:
+     - ./application:/usr/server/application
+     - ./package.json:/usr/server/package.json
+    command: >
+      sh -c "npm install && node server.js"

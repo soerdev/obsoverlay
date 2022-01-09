@@ -1,6 +1,5 @@
 import { Metacom } from './metacom.js';
 
-
 class Application {
   constructor() {
     const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
@@ -14,22 +13,19 @@ window.addEventListener('load', async () => {
   await application.metacom.load('bus');
   let timeoutId = null;
 
-  api.bus.subscribe({ 'room': 'obs' });
+  api.bus.subscribe({ room: 'obs' });
   api.bus.on('message', (data) => {
-    document.body.innerHTML =
-    `<div class="message-body"><p>${data.message.comment}</p></div>`;
+    document.body.innerHTML = `<div class="message-body"><p>${data.message.comment}</p></div>`;
 
     if (timeoutId) {
       clearInterval(timeoutId);
     }
 
-    timeoutId = setTimeout(() => document.body.innerHTML = '', 10000);
+    timeoutId = setTimeout(() => (document.body.innerHTML = ''), 10000);
   });
 
   api.bus.send({
-    'room': 'obs',
-    'message': { 'comment': 'Welcome to Overlay' }
+    room: 'obs',
+    message: { comment: 'Welcome to Overlay' },
   });
 });
-
-

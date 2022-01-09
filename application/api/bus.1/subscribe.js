@@ -7,5 +7,5 @@
       clients.delete(context.client);
     });
     return 'ok';
-  }
+  },
 });
