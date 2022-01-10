@@ -5,27 +5,41 @@ class Application {
     const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
     this.metacom = Metacom.create(`${protocol}://${location.host}/api`);
   }
+
+  startBus() {
+    let timeoutId = null;
+
+    api.bus.subscribe({ room: 'obs' });
+    api.bus.on('message', (data) => {
+      document.body.innerHTML = `<div class="message-body"><p>${data.message.comment}</p></div>`;
+      if (timeoutId) {
+        clearInterval(timeoutId);
+      }
+      timeoutId = setTimeout(() => (document.body.innerHTML = ''), 10000);
+    });
+  }
 }
 
 window.addEventListener('load', async () => {
   window.application = new Application();
   window.api = window.application.metacom.api;
-  await application.metacom.load('bus');
-  let timeoutId = null;
+  await application.metacom.load('auth', 'bus');
 
-  api.bus.subscribe({ room: 'obs' });
-  api.bus.on('message', (data) => {
-    document.body.innerHTML = `<div class="message-body"><p>${data.message.comment}</p></div>`;
+  try {
+    const token = localStorage.getItem('token');
+    const result = await api.auth.signin({ token });
 
-    if (timeoutId) {
-      clearInterval(timeoutId);
+    if (result.status === 'logged') {
+      console.log('User logged in ', result.user);
+      application.startBus();
+      api.bus.send({
+        room: 'obs',
+        message: { comment: 'Welcome to Overlay' },
+      });
+
     }
+  } catch (e) {
+    console.error('Access forbiden');
+  }
 
-    timeoutId = setTimeout(() => (document.body.innerHTML = ''), 10000);
-  });
-
-  api.bus.send({
-    room: 'obs',
-    message: { comment: 'Welcome to Overlay' },
-  });
 });
