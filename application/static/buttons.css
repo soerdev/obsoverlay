@@ -1,0 +1,82 @@
+@charset "UTF-8";
+.social__youtube, .social__vimeo, .social__pinterest, .social__facebook, .social__twitter {
+  border-radius: 0.2em;
+  color: #fff;
+  display: inline-block;
+  font-size: 1.5em;
+  margin: 0.5em;
+  padding: 0.3em 0.5em;
+  text-decoration: none;
+  text-shadow: 0.05em 0.05em 0.05em rgba(34, 34, 34, 0.4);
+}
+.social__youtube:before, .social__vimeo:before, .social__pinterest:before, .social__facebook:before, .social__twitter:before {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  margin-right: 0.2em;
+  padding-right: 0.5em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.social__twitter {
+  background: linear-gradient(#55d0ff, #00acee);
+  border: 0.1em solid #0087bb;
+}
+.social__twitter:before {
+  border-right: 0.05em solid #0087bb;
+  content: "";
+}
+.social__twitter:hover {
+  background: linear-gradient(#00acee, #55d0ff);
+}
+
+.social__facebook {
+  background: linear-gradient(#718dc8, #3b5998);
+  border: 0.1em solid #2d4373;
+}
+.social__facebook:before {
+  border-right: 0.05em solid #2d4373;
+  content: "";
+}
+.social__facebook:hover {
+  background: linear-gradient(#3b5998, #718dc8);
+}
+
+.social__pinterest {
+  background: linear-gradient(#e76a6f, #cb2027);
+  border: 0.1em solid #9f191f;
+}
+.social__pinterest:before {
+  border-right: 0.05em solid #9f191f;
+  content: "";
+}
+.social__pinterest:hover {
+  background: linear-gradient(#cb2027, #e76a6f);
+}
+
+.social__vimeo {
+  background: linear-gradient(#d2e8a2, #aad450);
+  border: 0.1em solid #93c130;
+}
+.social__vimeo:before {
+  border-right: 0.05em solid #93c130;
+  content: "";
+}
+.social__vimeo:hover {
+  background: linear-gradient(#aad450, #d2e8a2);
+}
+
+.social__youtube {
+  background: linear-gradient(#ff2222, #b00);
+  border: 0.1em solid #880000;
+}
+.social__youtube:before {
+  border-right: 0.05em solid #880000;
+  content: "";
+}
+.social__youtube:hover {
+  background: linear-gradient(#b00, #ff2222);
+}

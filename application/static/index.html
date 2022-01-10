@@ -3,12 +3,45 @@
   <head>
     <title>Overlay</title>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' wss:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
-    <script src="bus.js" type="module"></script>
+    <link rel="stylesheet" href="buttons.css">
+    <link rel="stylesheet" href="anim.css">
+    <script src="app.js" type="module"></script>
+    <script>
+      let id = 1;
+      function test() {
+        api.bus.send({ room: 'lowers', message: {
+          id,
+          title: 'ГОРЯЧИЕ',
+          subtitle: 'НОВОСТИ'
+        }});
+        id += 1;
+        id = id > 5 ? 0 : id;
+      }
+    </script>
   </head>
-<body class="greenscreen">
-  <h2>OBS Overlay</h2>
+  
+<body>
+  <h2>OBS Overlay</h2><br /><br />
+  <a class="social__twitter" href="#" onclick="test()">
+    Twitter
+   </a>
+   
+   <a class="social__facebook" href="#">
+     Facebook
+   </a>
+   
+   <a class="social__pinterest" href="#">
+     Pinterest
+   </a>
+   
+   <a class="social__vimeo" href="#">
+     Vimeo
+   </a>
+   
+   <a class="social__youtube" href="#">
+     Youtube
+   </a>
 </body>
 </html>
