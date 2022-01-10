@@ -1,5 +1,7 @@
 import { Metacom } from './metacom.js';
 
+const OBS_ROOM = 'obs';
+const CLEAR_TIMEOUT_MS = 10000;
 class Application {
   constructor() {
     const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
@@ -9,13 +11,22 @@ class Application {
   startBus() {
     let timeoutId = null;
 
-    api.bus.subscribe({ room: 'obs' });
+    api.bus.subscribe({ room: OBS_ROOM });
     api.bus.on('message', (data) => {
-      document.body.innerHTML = `<div class="message-body"><p>${data.message.comment}</p></div>`;
+      document.body.innerHTML = `
+        <div class="message-body">
+          <p>
+            ${data.message.comment}
+          </p>
+        </div>
+      `;
       if (timeoutId) {
         clearInterval(timeoutId);
       }
-      timeoutId = setTimeout(() => (document.body.innerHTML = ''), 10000);
+      timeoutId = setTimeout(
+        () => (document.body.innerHTML = ''),
+        CLEAR_TIMEOUT_MS
+      );
     });
   }
 }
@@ -33,7 +44,7 @@ window.addEventListener('load', async () => {
       console.log('User logged in ', result.user);
       application.startBus();
       api.bus.send({
-        room: 'obs',
+        room: OBS_ROOM,
         message: { comment: 'Welcome to Overlay' },
       });
 
