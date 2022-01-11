@@ -29,7 +29,17 @@
 
   async registerUser(login, hash) {
     domain.auth.user = { login, hash };
+  },
+
+  async checkJWT(token) {
+    try {
+      const user = await npm.jsonwebtoken.verify(
+        token,
+        config.jwt.secret
+      );
+      return user;
+    } catch (e) {
+      throw new Error('No access granted', 403);
+    }
   }
-
-
 });

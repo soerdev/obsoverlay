@@ -2,10 +2,7 @@
   access: 'public',
   method: async ({ token }) => {
     try {
-      const user = await npm.jsonwebtoken.verify(
-        token,
-        config.jwt.secret
-      );
+      const user = await domain.auth.checkJWT(token);
       console.log(`Logged user ${user}`);
       const data = { user };
       context.client.startSession(token, data);

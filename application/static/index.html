@@ -11,13 +11,16 @@
     <script>
       let id = 1;
       function test() {
+        const token = localStorage.getItem('token');
         api.bus.send({ room: 'lowers', message: {
-          id,
-          title: 'ГОРЯЧИЕ',
-          subtitle: 'НОВОСТИ'
-        }});
+            id,
+            title: 'ГОРЯЧИЕ',
+            subtitle: 'НОВОСТИ'
+          },
+          token
+        });
         id += 1;
-        id = id > 5 ? 0 : id;
+        id = id > 4 ? 0 : id;
       }
     </script>
   </head>

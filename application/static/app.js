@@ -17,7 +17,10 @@ class Application {
 
   startBus() {
     this.chat.on('message',
-      (comment) => api.bus.send({ room: OBS_ROOM, message: { comment } }));
+      (comment) => {
+        const token = localStorage.getItem('token');
+        api.bus.send({ room: OBS_ROOM, message: { comment }, token });
+      });
 
     api.bus.subscribe({ room: OBS_ROOM });
     api.bus.subscribe({ room: CHAT_ROOM });
@@ -61,6 +64,7 @@ window.addEventListener('load', async () => {
       api.bus.send({
         room: OBS_ROOM,
         message: { comment: 'Система управления OBS' },
+        token
       });
 
     }

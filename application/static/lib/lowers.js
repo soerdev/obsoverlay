@@ -11,7 +11,7 @@ export class LowerThird {
 
   createTemplate(index, title, subtitle) {
     switch (index) {
-    case 1:
+    case '1':
       this.template.innerHTML = `
             <div class="red">/</div>
                 <div class="white light mask">
@@ -23,7 +23,7 @@ export class LowerThird {
         `;
       this.template.id = 'animation-1';
       break;
-    case 2:
+    case '2':
       this.template.innerHTML = `
             <div class="red bold arimo mask">
                 <div>${title}</div>
@@ -35,7 +35,7 @@ export class LowerThird {
       this.template.id = 'animation-2';
       break;
 
-    case 3:
+    case '3':
       this.template.innerHTML = `
             <div class="white light mask">
             <div>${title}</div>
@@ -45,7 +45,7 @@ export class LowerThird {
             `;
       this.template.id = 'animation-3';
       break;
-    case 4:
+    case '4':
       this.template.innerHTML = `
       <div class="white bold arimo mask">
       <div>${title}</div>

@@ -11,11 +11,6 @@ class Application {
 
     this.comment = new Comment();
     this.lowerThird = new LowerThird();
-
-    setInterval(() => api.bus.send({
-      room: SYSTEM_ROOM,
-      message: { comment: 'ping from obs' }
-    }), 10000);
   }
 
   startBus() {
