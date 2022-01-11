@@ -61,6 +61,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
+    "escape-html": "^1.0.3",
     "impress": "^2.6.6",
     "jsonwebtoken": "^8.5.1",
     "metasql": "^2.0.1"

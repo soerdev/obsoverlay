@@ -9,11 +9,11 @@ export class Chat extends EventEmitter {
     document.body.append(this.template);
   }
 
-  addMessage(message) {
+  addMessage(data) {
     const messageTpl = document.createElement('div');
     messageTpl.className = 'message';
-    messageTpl.innerHTML = message;
-    messageTpl.onclick = () => this.emit('message', message);
+    messageTpl.innerHTML = data.message.comment;
+    messageTpl.onclick = () => this.emit('message', data.message.comment);
     this.template.append(messageTpl);
   }
 }

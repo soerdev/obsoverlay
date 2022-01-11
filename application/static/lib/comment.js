@@ -9,11 +9,11 @@ export class Comment {
     document.body.append(this.template);
   }
 
-  displayComment(comment) {
+  displayComment(data) {
     this.template.innerHTML = `
     <div class="message-body">
       <p>
-        ${comment}
+        ${data.message.comment}
       </p>
     </div>
     `;

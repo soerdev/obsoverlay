@@ -24,7 +24,7 @@ class Application {
     api.bus.on('message', (data) => {
       switch (data.room) {
       case OBS_ROOM:
-        this.comment.displayComment(data.message.comment);
+        this.comment.displayComment(data);
         break;
 
       case LOWERS_ROOM:
