@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.social__youtube, .social__vimeo, .social__pinterest, .social__facebook, .social__twitter {
+.button, .social__youtube, .social__vimeo, .social__pinterest, .social__facebook, .social__twitter {
   border-radius: 0.2em;
   color: #fff;
   display: inline-block;
@@ -9,6 +9,15 @@
   text-decoration: none;
   text-shadow: 0.05em 0.05em 0.05em rgba(34, 34, 34, 0.4);
 }
+
+.button {
+  background-color:  #aaa;
+  border: 1px solid #757575;
+  text-align: center;
+  font-size: 1em;
+  min-height: 2em;
+}
+
 .social__youtube:before, .social__vimeo:before, .social__pinterest:before, .social__facebook:before, .social__twitter:before {
   display: inline-block;
   font-family: FontAwesome;
@@ -29,6 +38,7 @@
   border-right: 0.05em solid #0087bb;
   content: "";
 }
+
 .social__twitter:hover {
   background: linear-gradient(#00acee, #55d0ff);
 }

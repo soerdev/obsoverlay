@@ -1,0 +1,96 @@
+.app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.app header {
+    flex: 0 1 0%;
+    position: relative;
+    border-bottom: var(--panels-border);
+    background-color: var(--app-background);
+}
+
+.app header .info {
+    
+}
+
+.info h2 {
+    margin-left:2em;
+    text-transform: uppercase;
+    color: var(--primary-font-clr);
+}
+.app .content {
+    flex: 1 1 0%;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    background: var(--app-content-background);
+}
+
+.app .content main {
+    flex: 1 1 0%;
+    position: relative;
+}
+
+.app .content sidebar {
+    flex: 0 0 460px;
+    overflow-x: hidden;
+}
+
+sidebar .side-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: var(--app-sidebar-background);
+    border-left: var(--panels-border);
+}
+
+.side-content .toolbar {
+    flex: 0 0 70px;
+    padding: 8px 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--app-background);
+    border-left: var(--panels-border);
+}
+.side-content .side-panel {
+    flex: 1 1 0%;
+    overflow: hidden;
+}
+
+
+/**
+ * Chat
+ */
+
+ .chat {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+  .chat .message-container {
+    width: 100%;
+    position: relative;
+    z-index: 0;
+  }
+  .chat .message {
+    margin:0.5em;
+    min-height: 40px;
+    position: relative;
+    padding: 8px 0px;
+    border-radius: 4px;
+    background-color: var(--app-background);
+    color: var(--primary-font-clr);
+    border: var(--chat-message-border);
+    line-height: 1.4;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .chat .message .comment {
+    margin-left: 4em;
+    margin-right: 1em;
+    font-size: 0.8em;
+  }

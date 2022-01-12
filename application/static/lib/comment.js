@@ -4,9 +4,12 @@ export class Comment {
 
   constructor() {
     this.timeoutId = null;
+
+    this.container = document.getElementsByClassName('main-content')[0] ||
+                     document.body;
     this.template = document.createElement('div');
     this.template.className = 'comments';
-    document.body.append(this.template);
+    this.container.append(this.template);
   }
 
   displayComment(data) {

@@ -4,6 +4,8 @@
   
   html {
     --primary-clr:#FF9700;
+    --primary-font-clr:#000000;
+    --primary-comment-clr:#FF9700;
     --primary-text-stroke: #9e2a00;
     --text-clr:#C8A080;
   
@@ -12,6 +14,15 @@
     --button-primary-background-hover: #FFcc00;
     --button-color: #fff;
     --text-input-color: #333;
+
+
+    --app-background: rgb(226, 226, 226);
+    --app-content-background: rgb(248, 248, 250);
+    --app-sidebar-background: rgb(255, 255, 255);
+
+    --chat-message-border: 1px solid rgb(211, 211, 211);
+    --panels-border: 1px solid rgb(175, 175, 175);
+
     height: 100%;
   }
   
@@ -28,31 +39,17 @@
   }
 
   .comments {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
-    width: 50%;
+    width: 100%;
     height: 0%;
   }
 
-  .chat {
-    z-index: 0;
-    width: 500px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    background-color: black;
-    color: whitesmoke;
-    overflow: auto;
-  }
-  .chat .message {
-    width: 100%;
-    padding: 0.5em;
-  }
+  
   
   .message-body {
-    color: var(--primary-clr);
+    color: var(--primary-comment-clr);
     font-size: 2em;
     margin: 0 auto;
     padding: 0.5em;
