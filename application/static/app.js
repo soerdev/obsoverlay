@@ -9,9 +9,11 @@ import { OBS_ROOM, CHAT_ROOM, SYSTEM_ROOM, LOWERS_ROOM } from './consts.js';
 class Application {
   constructor() {
     const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
+    this.tabs = {};
     this.comment = new Comment();
-    this.chat = new Chat();
-    this.lowerThird = new LowerThird();
+    this.tabs.chat = this.chat = new Chat();
+    this.tabs.lowerThird = this.lowerThird = new LowerThird();
+    this.activateTab('chat');
     this.metacom = Metacom.create(`${protocol}://${location.host}/api`);
   }
 
@@ -46,6 +48,18 @@ class Application {
         break;
       }
     });
+  }
+
+  activateTab(activeTabName) {
+    for (const tabName in this.tabs) {
+      this.tabs[tabName].deactivate();
+    }
+    this.tabs[activeTabName].activate();
+  }
+  send(data) {
+    const token = localStorage.getItem('token');
+    data.token = token;
+    api.bus.send(data);
   }
 }
 

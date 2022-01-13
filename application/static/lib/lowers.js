@@ -1,21 +1,21 @@
+import { Button } from '../templates/button.template.js';
+import { SidebarPanel } from './sidebar-panel.class.js';
+
 const CLEAR_TIMEOUT_MS = 6000;
 
-export class LowerThird {
+
+export class LowerThird extends SidebarPanel {
 
   constructor() {
+    super({ screenClassName: 'animation', sidebarClassName: 'lowthirds-list' });
     this.timeoutId = null;
-    this.container = document.getElementsByClassName('main-content')[0] ||
-    document.body;
-
-    this.template = document.createElement('div');
-    this.template.className = 'animation';
-    this.container.append(this.template);
+    this.initSidebarContent();
   }
 
   createTemplate(index, title, subtitle) {
     switch (index) {
     case '1':
-      this.template.innerHTML = `
+      this.screenTemplate.tpl.innerHTML = `
             <div class="red">/</div>
                 <div class="white light mask">
                     <div>${title}</div>
@@ -24,10 +24,10 @@ export class LowerThird {
                     <div>${subtitle}</div>
                 </div>
         `;
-      this.template.id = 'animation-1';
+      this.screenTemplate.tpl.id = 'animation-1';
       break;
     case '2':
-      this.template.innerHTML = `
+      this.screenTemplate.tpl.innerHTML = `
             <div class="red bold arimo mask">
                 <div>${title}</div>
             </div>
@@ -35,31 +35,31 @@ export class LowerThird {
                 <div>${subtitle}</div>
             </div>
         `;
-      this.template.id = 'animation-2';
+      this.screenTemplate.tpl.id = 'animation-2';
       break;
 
     case '3':
-      this.template.innerHTML = `
+      this.screenTemplate.tpl.innerHTML = `
             <div class="white light mask">
             <div>${title}</div>
             </div><div class="red bold arimo mask">
             <div>${subtitle}</div>
             </div>
             `;
-      this.template.id = 'animation-3';
+      this.screenTemplate.tpl.id = 'animation-3';
       break;
     case '4':
-      this.template.innerHTML = `
+      this.screenTemplate.tpl.innerHTML = `
       <div class="white bold arimo mask">
       <div>${title}</div>
     </div>
     <div class="mask"><div></div></div>
       `;
-      this.template.id = 'animation-4';
+      this.screenTemplate.tpl.id = 'animation-4';
       break;
 
     default:
-      this.template.innerHTML = `
+      this.screenTemplate.tpl.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
       <defs>
         <clipPath id="mask-bottom-right">
@@ -86,32 +86,40 @@ export class LowerThird {
       <div>${subtitle}</div>
     </div>   
       `;
-      this.template.id = 'animation-5';
+      this.screenTemplate.tpl.id = 'animation-5';
       break;
     }
     this.delayClear();
   }
 
 
+  initSidebarContent() {
+    const in1 = document.createElement('input');
+    const in2 = document.createElement('input');
+    this.sidebarTemplate.tpl.append(in1);
+    this.sidebarTemplate.tpl.append(in2);
 
-  displayComment(comment) {
-    this.template.innerHTML = `
-    <div class="message-body">
-      <p>
-        ${comment}
-      </p>
-    </div>
-    `;
-    this.delayClear();
+    ['1', '2', '3', '4', '5'].forEach((v) => {
+      (new Button(`Вариант ${v}`, () => {
+        application.send({
+          room: 'lowers',
+          message: { title: in1.value, subtitle: in2.value, id: v }
+        });
+      })).appendTo(this.sidebarTemplate.tpl);
+    });
   }
+
+
 
   delayClear()  {
     if (this.timeoutId) {
       clearInterval(this.timeoutId);
     }
     this.timeoutId = setTimeout(
-      () => (this.template.innerHTML = ''),
+      () => (this.screenTemplate.tpl.innerHTML = ''),
       CLEAR_TIMEOUT_MS
     );
   }
+
+
 }
