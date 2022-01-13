@@ -99,11 +99,15 @@ export class LowerThird extends SidebarPanel {
     this.sidebarTemplate.tpl.append(in1);
     this.sidebarTemplate.tpl.append(in2);
 
-    ['1', '2', '3', '4', '5'].forEach((v) => {
-      (new Button(`Вариант ${v}`, () => {
+    [ 'Вариант 1',
+      'Вариант 2',
+      'Вариант 3',
+      'Вариант 4',
+      'Вариант 5'].forEach((v, k) => {
+      (new Button(v, () => {
         application.send({
           room: 'lowers',
-          message: { title: in1.value, subtitle: in2.value, id: v }
+          message: { title: in1.value, subtitle: in2.value, id: (k + 1) + '' }
         });
       })).appendTo(this.sidebarTemplate.tpl);
     });
