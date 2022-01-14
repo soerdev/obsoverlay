@@ -7,6 +7,5 @@ export class Component extends EventEmitter {
   constructor(className) {
     super();
     this.template = new Template(className);
-    this.template.deactivate();
   }
 }

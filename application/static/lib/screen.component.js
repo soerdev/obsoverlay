@@ -13,7 +13,6 @@ export class ScreenComponent extends Component {
     this.timeoutId = null;
 
     this.template.appendTo('main-content');
-    this.template.activate();
   }
 
   lowerThird(index, title, subtitle) {

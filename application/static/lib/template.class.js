@@ -33,7 +33,15 @@ export class Template {
 
   }
 
+  setClass(className) {
+    this.removeClass([className]);
+    this.tpl.className += ` ${className}`;
+  }
+
   removeClass(listClassNames) {
+    if (typeof listClassNames === 'string') {
+      listClassNames = [listClassNames];
+    }
     if (!listClassNames.length) {
       console.error('class names should be not empty array');
       return;
@@ -48,9 +56,9 @@ export class Template {
   activate() {
     this.removeClass([INACTIVE_CLASS]);
   }
+
   deactivate() {
-    this.removeClass([INACTIVE_CLASS]);
-    this.tpl.className += ` ${INACTIVE_CLASS}`;
+    this.setClass(INACTIVE_CLASS);
   }
 
   action(callback) {

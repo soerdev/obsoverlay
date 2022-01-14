@@ -10,6 +10,9 @@
   text-shadow: 0.05em 0.05em 0.05em rgba(34, 34, 34, 0.4);
 }
 
+.button.checked {
+  border: 1px solid red;
+}
 .button {
   background-color:  #aaa;
   border: 1px solid #757575;

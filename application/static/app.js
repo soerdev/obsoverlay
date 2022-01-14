@@ -11,8 +11,6 @@ class Application {
     this.tabs = {};
     this.screen = new ScreenComponent();
     this.initTabs();
-
-    this.activateTab('chat');
     this.metacom = Metacom.create(`${protocol}://${location.host}/api`);
   }
 
@@ -53,25 +51,29 @@ class Application {
 
   activateTab(activeTabName) {
     for (const tabName in this.tabs) {
-      this.tabs[tabName].template.deactivate();
+      if (tabName !== activeTabName) {
+        this.tabs[tabName].template.deactivate();
+      }
     }
     this.tabs[activeTabName].template.activate();
+    this.toolbar.activateButton(activeTabName);
   }
 
   initTabs() {
     this.tabs.chat = this.chat = new ChatComponent();
     this.tabs.lowerThird = this.lowerThird = new LowerThirdComponent();
 
-    const toolbar = new ToolbarComponent([
+    const toolbar = this.toolbar = new ToolbarComponent([
       { id: 'chat', 'title': 'Chat' },
       { id: 'lowerThird', 'title': 'Lower Thirds' },
     ]);
+
     toolbar.template.appendTo('toolbar');
     toolbar.on('message', (id) => {
       this.activateTab(id);
     });
 
-    this.chat.template.activate();
+    this.activateTab('chat');
   }
 
   send(data) {
