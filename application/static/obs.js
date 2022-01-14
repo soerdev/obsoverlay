@@ -1,5 +1,5 @@
 import { Metacom } from './metacom.js';
-import { OBS_ROOM, SYSTEM_ROOM, LOWERS_ROOM } from './consts.js';
+import { OBS_ROOM, LOWERS_ROOM } from './consts.js';
 import { ScreenComponent } from './lib/screen.component.js';
 
 class Application {

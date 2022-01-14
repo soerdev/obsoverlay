@@ -1,6 +1,6 @@
 import { Metacom } from './metacom.js';
 import { ChatComponent } from './lib/chat.component.js';
-import { LowerThird } from './lib/lowers.js';
+import { LowerThirdComponent } from './lib/lowers.component.js';
 import { ToolbarComponent } from './lib/toolbar.component.js';
 import { OBS_ROOM, CHAT_ROOM, SYSTEM_ROOM, LOWERS_ROOM } from './consts.js';
 import { ScreenComponent } from './lib/screen.component.js';
@@ -60,7 +60,7 @@ class Application {
 
   initTabs() {
     this.tabs.chat = this.chat = new ChatComponent();
-    this.tabs.lowerThird = this.lowerThird = new LowerThird();
+    this.tabs.lowerThird = this.lowerThird = new LowerThirdComponent();
 
     const toolbar = new ToolbarComponent([
       { id: 'chat', 'title': 'Chat' },

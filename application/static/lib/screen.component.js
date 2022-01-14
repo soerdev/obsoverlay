@@ -56,7 +56,7 @@ export class ScreenComponent extends Component {
       clearInterval(this.timeoutId);
     }
     this.timeoutId = setTimeout(
-      () => (this.template.innerHTML = ''),
+      () => (this.template.html('')),
       CLEAR_TIMEOUT_MS
     );
   }

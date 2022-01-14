@@ -8,7 +8,7 @@ import { Component } from './component.class.js';
 
 const CLEAR_TIMEOUT_MS = 6000;
 
-export class LowerThird extends Component {
+export class LowerThirdComponent extends Component {
 
   constructor() {
     super('lowthirds-list');
