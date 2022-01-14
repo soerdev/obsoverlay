@@ -1,18 +1,17 @@
 import { Metacom } from './metacom.js';
-import { Comment } from './lib/comment.js';
-import { Chat } from './lib/chat.js';
+import { ChatComponent } from './lib/chat.component.js';
 import { LowerThird } from './lib/lowers.js';
+import { ToolbarComponent } from './lib/toolbar.component.js';
 import { OBS_ROOM, CHAT_ROOM, SYSTEM_ROOM, LOWERS_ROOM } from './consts.js';
-
-
+import { ScreenComponent } from './lib/screen.component.js';
 
 class Application {
   constructor() {
     const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
     this.tabs = {};
-    this.comment = new Comment();
-    this.tabs.chat = this.chat = new Chat();
-    this.tabs.lowerThird = this.lowerThird = new LowerThird();
+    this.screen = new ScreenComponent();
+    this.initTabs();
+
     this.activateTab('chat');
     this.metacom = Metacom.create(`${protocol}://${location.host}/api`);
   }
@@ -30,9 +29,11 @@ class Application {
     api.bus.subscribe({ room: LOWERS_ROOM });
     api.bus.on('message', (data) => {
       switch (data.room) {
+
       case OBS_ROOM:
-        this.comment.displayComment(data);
+        this.screen.obsComment(data);
         break;
+
       case CHAT_ROOM:
         this.chat.addMessage(data);
         break;
@@ -41,7 +42,7 @@ class Application {
         console.log('OBS Ping');
         break;
       case LOWERS_ROOM:
-        this.lowerThird.createTemplate(
+        this.screen.lowerThird(
           data.message.id,
           data.message.title,
           data.message.subtitle);
@@ -52,10 +53,27 @@ class Application {
 
   activateTab(activeTabName) {
     for (const tabName in this.tabs) {
-      this.tabs[tabName].deactivate();
+      this.tabs[tabName].template.deactivate();
     }
-    this.tabs[activeTabName].activate();
+    this.tabs[activeTabName].template.activate();
   }
+
+  initTabs() {
+    this.tabs.chat = this.chat = new ChatComponent();
+    this.tabs.lowerThird = this.lowerThird = new LowerThird();
+
+    const toolbar = new ToolbarComponent([
+      { id: 'chat', 'title': 'Chat' },
+      { id: 'lowerThird', 'title': 'Lower Thirds' },
+    ]);
+    toolbar.template.appendTo('toolbar');
+    toolbar.on('message', (id) => {
+      this.activateTab(id);
+    });
+
+    this.chat.template.activate();
+  }
+
   send(data) {
     const token = localStorage.getItem('token');
     data.token = token;
@@ -84,7 +102,7 @@ window.addEventListener('load', async () => {
     }
   } catch (e) {
     alert('Access forbiden');
-    console.error('Access forbiden');
+    console.error('Access forbiden', e.message);
   }
 
 });

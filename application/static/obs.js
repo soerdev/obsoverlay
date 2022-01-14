@@ -1,7 +1,6 @@
 import { Metacom } from './metacom.js';
-import { Comment } from './lib/comment.js';
 import { OBS_ROOM, SYSTEM_ROOM, LOWERS_ROOM } from './consts.js';
-import { LowerThird } from './lib/lowers.js';
+import { ScreenComponent } from './lib/screen.component.js';
 
 class Application {
 
@@ -9,8 +8,7 @@ class Application {
     const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
     this.metacom = Metacom.create(`${protocol}://${location.host}/api`);
 
-    this.comment = new Comment();
-    this.lowerThird = new LowerThird();
+    this.screen = new ScreenComponent();
   }
 
   startBus() {
@@ -19,11 +17,11 @@ class Application {
     api.bus.on('message', (data) => {
       switch (data.room) {
       case OBS_ROOM:
-        this.comment.displayComment(data);
+        this.screen.obsComment(data);
         break;
 
       case LOWERS_ROOM:
-        this.lowerThird.createTemplate(
+        this.screen.lowerThird(
           data.message.id,
           data.message.title,
           data.message.subtitle);

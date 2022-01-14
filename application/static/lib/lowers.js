@@ -4,16 +4,16 @@ import { LowerThird1,
   LowerThird3,
   LowerThird4,
   LowerThird5 } from '../templates/lower-thirds.template.js';
-import { SidebarPanel } from './sidebar-panel.class.js';
+import { Component } from './component.class.js';
 
 const CLEAR_TIMEOUT_MS = 6000;
 
-export class LowerThird extends SidebarPanel {
+export class LowerThird extends Component {
 
   constructor() {
-    super({ screenClassName: 'animation', sidebarClassName: 'lowthirds-list' });
-    this.timeoutId = null;
-    this.initSidebarContent();
+    super('lowthirds-list');
+    this.initContent();
+    this.template.appendTo('side-panel');
   }
 
   createTemplate(index, title, subtitle) {
@@ -41,11 +41,11 @@ export class LowerThird extends SidebarPanel {
   }
 
 
-  initSidebarContent() {
+  initContent() {
     const in1 = document.createElement('input');
     const in2 = document.createElement('input');
-    this.sidebarTemplate.tpl.append(in1);
-    this.sidebarTemplate.tpl.append(in2);
+    this.template.tpl.append(in1);
+    this.template.tpl.append(in2);
 
     [ 'Вариант 1',
       'Вариант 2',
@@ -57,7 +57,7 @@ export class LowerThird extends SidebarPanel {
           room: 'lowers',
           message: { title: in1.value, subtitle: in2.value, id: (k + 1) + '' }
         });
-      })).appendTo(this.sidebarTemplate.tpl);
+      })).appendTo(this.template);
     });
   }
 

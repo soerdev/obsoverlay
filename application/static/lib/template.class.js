@@ -2,12 +2,12 @@ export const ACTIVE_CLASS = 'active';
 export const INACTIVE_CLASS = 'inactive';
 
 export class Template {
-  constructor(srcClassName) {
-    this.tpl = this.initTemplate(srcClassName);
+  constructor(srcClassName, container = 'div') {
+    this.tpl = this.initTemplate(srcClassName, container);
   }
 
-  initTemplate(srcClassName) {
-    const tmpTpl = document.createElement('div');
+  initTemplate(srcClassName, container = 'div') {
+    const tmpTpl = document.createElement(container);
     tmpTpl.className = srcClassName;
     tmpTpl.innerHTML = '';
     return tmpTpl;
@@ -17,8 +17,20 @@ export class Template {
     this.tpl.innerHTML = content;
   }
 
-  appendTo(target) {
-    target.append(this.tpl);
+  appendTo(target, defaultTarget = document.body) {
+    if (typeof target === 'string') {
+      this.getTarget(target, defaultTarget).append(this.tpl);
+    }  else if (target.tpl) {
+      target.tpl.append(this.tpl);
+    } else if (target.append) {
+      target.append(this.tpl);
+    }
+  }
+
+  getTarget(targetClassName, defaultTarget = document.body) {
+    return document.getElementsByClassName(targetClassName)[0] ||
+      defaultTarget;
+
   }
 
   removeClass(listClassNames) {
@@ -39,5 +51,9 @@ export class Template {
   deactivate() {
     this.removeClass([INACTIVE_CLASS]);
     this.tpl.className += ` ${INACTIVE_CLASS}`;
+  }
+
+  action(callback) {
+    this.tpl.onclick = callback;
   }
 }
