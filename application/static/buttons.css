@@ -13,6 +13,9 @@
 .button.checked {
   border: 1px solid red;
 }
+.toolbar-container .button {
+  width: 60px;
+}
 .button {
   background-color:  #aaa;
   border: 1px solid #757575;

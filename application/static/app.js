@@ -97,7 +97,7 @@ window.addEventListener('load', async () => {
       application.startBus();
       api.bus.send({
         room: OBS_ROOM,
-        message: { comment: 'Система управления OBS' },
+        message: { comment: 'Система управления OBS запущена' },
         token
       });
 

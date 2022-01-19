@@ -1,12 +1,5 @@
 import { Button } from '../templates/button.template.js';
-import { LowerThird1,
-  LowerThird2,
-  LowerThird3,
-  LowerThird4,
-  LowerThird5 } from '../templates/lower-thirds.template.js';
 import { Component } from './component.class.js';
-
-const CLEAR_TIMEOUT_MS = 6000;
 
 export class LowerThirdComponent extends Component {
 
@@ -15,31 +8,6 @@ export class LowerThirdComponent extends Component {
     this.initContent();
     this.template.appendTo('side-panel');
   }
-
-  createTemplate(index, title, subtitle) {
-    this.screenTemplate.html('');
-    switch (index) {
-    case '1':
-      (new LowerThird1(title, subtitle)).appendTo(this.screenTemplate.tpl);
-      break;
-    case '2':
-      (new LowerThird2(title, subtitle)).appendTo(this.screenTemplate.tpl);
-      break;
-
-    case '3':
-      (new LowerThird3(title, subtitle)).appendTo(this.screenTemplate.tpl);
-      break;
-    case '4':
-      (new LowerThird4(title)).appendTo(this.screenTemplate.tpl);
-      break;
-
-    default:
-      (new LowerThird5(title, subtitle)).appendTo(this.screenTemplate.tpl);
-      break;
-    }
-    this.delayClear();
-  }
-
 
   initContent() {
     const in1 = document.createElement('input');
@@ -60,16 +28,4 @@ export class LowerThirdComponent extends Component {
       })).appendTo(this.template);
     });
   }
-
-  delayClear()  {
-    if (this.timeoutId) {
-      clearInterval(this.timeoutId);
-    }
-    this.timeoutId = setTimeout(
-      () => (this.screenTemplate.tpl.innerHTML = ''),
-      CLEAR_TIMEOUT_MS
-    );
-  }
-
-
 }

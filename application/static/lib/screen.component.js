@@ -5,11 +5,11 @@ import { LowerThird1,
   LowerThird5 } from '../templates/lower-thirds.template.js';
 import { Component } from './component.class.js';
 
-const CLEAR_TIMEOUT_MS = 6000;
+const CLEAR_TIMEOUT_MS = 14000;
 export class ScreenComponent extends Component {
 
   constructor() {
-    super('chat');
+    super('fullscreen');
     this.timeoutId = null;
 
     this.template.appendTo('main-content');

@@ -1,7 +1,7 @@
 
 .animation {
     width: 40em;
-    height: 4em;
+    height: 3em;
     margin: 1em auto;
     position: absolute;
     left: 100px;
@@ -13,11 +13,14 @@
   }
   
   .red {
-    color: #cf4c4e;
+    color: var(--comment-border-clr);
   }
   
   .white {
     color: white;
+  }
+  .black {
+    color: black;
   }
   
   .light {
@@ -54,23 +57,29 @@
   }
   @keyframes animation-1-text-1 {
     0% {
+      opacity: 0;
       left: -100%;
     }
     45% {
+      opacity: 0;
       left: -100%;
     }
     65% {
+      opacity: 1;
       left: 0;
     }
   }
   @keyframes animation-1-text-2 {
     0% {
+      opacity: 0;
       left: -100%;
     }
     55% {
+      opacity: 0;
       left: -100%;
     }
     75% {
+      opacity: 1;
       left: 0;
     }
   }
@@ -78,17 +87,17 @@
     position: absolute;
   }
   #animation-1 > div:first-child {
-    font-size: 8.8em;
-    top: -0.13em;
-    animation: 4s cubic-bezier(0.19, 0.76, 0.32, 1) infinite alternate both animation-1-slash;
+    font-size: 8em;
+    top: -0.2em;
+    animation: var(--anim-duration) cubic-bezier(0.19, 0.76, 0.32, 1) infinite alternate both animation-1-slash;
   }
   #animation-1 > div:nth-child(2), #animation-1 > div:nth-child(3) {
-    font-size: 4em;
-    height: 1em;
-    width: 5em;
+    font-size: 3em;
+    height: 3em;
+    width: 80vw;
   }
   #animation-1 > div:nth-child(2) div, #animation-1 > div:nth-child(3) div {
-    animation: 4s cubic-bezier(0.19, 0.76, 0.32, 1) infinite alternate both;
+    animation: var(--anim-duration) cubic-bezier(0.19, 0.76, 0.32, 1) infinite alternate both;
   }
   #animation-1 div:nth-child(2) {
     top: 0;
@@ -142,16 +151,16 @@
     width: 100%;
   }
   #animation-2 > div:first-child {
-    font-size: 4.8em;
+    font-size: 3.8em;
   }
   #animation-2 > div:first-child div {
-    animation: 3s ease-out infinite alternate both animation-2-name;
+    animation: var(--anim-duration) ease-out infinite alternate both animation-2-name;
   }
   #animation-2 > div:last-child {
     font-size: 2.1em;
   }
   #animation-2 > div:last-child div {
-    animation: 3s ease-out infinite alternate both animation-2-title;
+    animation: var(--anim-duration) ease-out infinite alternate both animation-2-title;
   }
   
   /*********************
@@ -185,20 +194,20 @@
     height: 1em;
   }
   #animation-3 > div:first-child {
-    font-size: 4.4em;
+    font-size: 3.4em;
     text-align: right;
     letter-spacing: 1px;
   }
   #animation-3 > div:first-child div {
-    animation: 3.2s ease-out infinite alternate both animation-3-left;
+    animation: var(--anim-duration) ease-out infinite alternate both animation-3-left;
   }
   #animation-3 > div:last-child {
-    font-size: 4.5em;
+    font-size: 3.5em;
     line-height: 1.15;
     letter-spacing: -1px;
   }
   #animation-3 > div:last-child div {
-    animation: 3.2s ease-out infinite alternate both animation-3-right;
+    animation: var(--anim-duration) ease-out infinite alternate both animation-3-right;
   }
   
   /*********************
@@ -231,10 +240,10 @@
     vertical-align: middle;
   }
   #animation-4 > div div {
-    animation: 3s ease-out infinite alternate both;
+    animation: var(--anim-duration) ease-out infinite alternate both;
   }
   #animation-4 > div:first-child {
-    font-size: 4.8em;
+    font-size: 3.8em;
   }
   #animation-4 > div:first-child div {
     animation-name: animation-4-text;
@@ -327,7 +336,7 @@
   }
   #animation-5 div,
   #animation-5 .clip-path {
-    animation: 3.1s ease-out infinite alternate both;
+    animation: var(--anim-duration) ease-out infinite alternate both;
   }
   #animation-5 .bottom-right,
   #animation-5 .right {
@@ -350,7 +359,7 @@
     animation-name: animation-5-bottom-left;
   }
   #animation-5 > div:nth-child(2) {
-    font-size: 4em;
+    font-size: 3em;
     padding-top: 0.4em;
   }
   #animation-5 > div:nth-child(2) div {

@@ -1,11 +1,11 @@
 @media screen and (max-width: 800px) {
     .page { width: 100vw !important; }
-  }
+}
   
   html {
-    --primary-clr:#FF9700;
+    --primary-clr:#000000;
     --primary-font-clr:#000000;
-    --primary-comment-clr:#FF9700;
+    --primary-comment-clr:#000000;
     --primary-text-stroke: #9e2a00;
     --text-clr:#C8A080;
   
@@ -21,7 +21,10 @@
     --app-sidebar-background: rgb(255, 255, 255);
 
     --chat-message-border: 1px solid rgb(211, 211, 211);
+    --comment-border-clr: rgb(42, 99, 255);
     --panels-border: 1px solid rgb(175, 175, 175);
+
+    --anim-duration: 7s;
 
     height: 100%;
   }
@@ -38,6 +41,12 @@
     color: white;
   }
 
+  .fullscreen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
   .comments {
     position: relative;
     top: 0;
@@ -49,16 +58,23 @@
   
   
   .message-body {
+    position: absolute;
+    bottom: 0;
     color: var(--primary-comment-clr);
+    border-left: 20px solid var(--comment-border-clr);
     font-size: 2em;
-    margin: 0 auto;
+    margin: 1em;
     padding: 0.5em;
-    background-color:rgba(0, 0, 0, 0.8);
+    background-color:rgba(255, 255, 255, 0.8);
+    animation-duration: 1s;
+    animation-name:  animation-1-slash;
+    overflow: hidden;
   }
   
   .message-body p {
-    -webkit-text-stroke: var(--primary-text-stroke) 1px;
-    text-align: center;
+    text-align: left;
+    animation-duration: 1.5s;
+    animation-name:  animation-1-slash;
   }
   
   h1,h2,h3,h4 {
