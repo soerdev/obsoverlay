@@ -1,0 +1,12 @@
+FROM mhart/alpine-node:14
+
+WORKDIR /usr/server
+COPY package*.json ./
+
+RUN npm ci --only=production
+
+COPY . .
+RUN rm -rf .env*
+
+EXPOSE 8001
+CMD [ "node", "server.js" ]

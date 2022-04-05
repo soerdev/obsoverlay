@@ -1,15 +1,12 @@
 
 .animation {
     width: 40em;
-    height: 3em;
+    height: 8em;
     margin: 1em auto;
     position: absolute;
-    left: 100px;
-    bottom: 100px;
-  }
-  
-  .arimo {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    left: 2em;
+    bottom: 1em;
+    text-shadow: 2px 2px 3px black;
   }
   
   .red {
@@ -17,7 +14,7 @@
   }
   
   .white {
-    color: white;
+    color: rgb(228, 228, 228);
   }
   .black {
     color: black;

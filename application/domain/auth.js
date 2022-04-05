@@ -32,6 +32,7 @@
   },
 
   async checkJWT(token) {
+    token = (token + '').replace(/[\n\r]*/g, '');
     try {
       const user = await npm.jsonwebtoken.verify(
         token,
@@ -39,6 +40,7 @@
       );
       return user;
     } catch (e) {
+	console.log(e);
       throw new Error('No access granted', 403);
     }
   }

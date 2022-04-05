@@ -21,7 +21,7 @@ export class LowerThird2 extends Template {
   constructor(title, subtitle) {
     super('animation');
     this.html(`
-    <div class="red bold arimo mask">
+    <div class="red bold mask">
         <div>${title}</div>
     </div>
     <div class="white light mask">
@@ -38,7 +38,7 @@ export class LowerThird3 extends Template {
     this.html(`
     <div class="white light mask">
     <div>${title}</div>
-    </div><div class="red bold arimo mask">
+    </div><div class="red bold mask">
     <div>${subtitle}</div>
     </div>
     `);
@@ -50,7 +50,7 @@ export class LowerThird4 extends Template {
   constructor(title) {
     super('animation');
     this.html(`
-    <div class="white bold arimo mask">
+    <div class="white bold mask">
     <div>${title}</div>
   </div>
   <div class="mask"><div></div></div>
@@ -82,7 +82,7 @@ export class LowerThird5 extends Template {
             <line class="left" x1="0" y1="0" x2="0" y2="100%"/>
             <line class="bottom-left" x1="0" y1="100%" x2="30%" y2="100%"/>
         </svg>
-        <div class="white bold arimo mask">
+        <div class="white bold mask">
             <div>${title}</div>
         </div>
         <div class="white mask">
