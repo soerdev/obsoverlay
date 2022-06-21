@@ -39,7 +39,9 @@ window.addEventListener('load', async () => {
   application.startBus();
 
   if (window.obsstudio) {
-    application.comment.displayComment('OBS is Running');
+    application.screen.obsComment(
+      { 'message': { 'comment': 'OBS is Running' } }
+    );
   } else {
     alert('This is page should be running under OBS');
     window.location.href = '/';
