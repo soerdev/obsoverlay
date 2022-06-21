@@ -8,6 +8,9 @@ api.bus.send({'room': 'obs', 'message': {'comment': 'test'}});
 
 Send comment via http:
 
+
 ```
-curl -d "{\"room\": \"obs\", \"message\": {\"comment\": \"test2\"}}" -X POST http://localhost:8001/api/bus/send
+ curl -X POST -H "Content-Type: application/json" \
+      -d '{"room": "obs", "message": {"comment": "This is small test"}, "token": "'$token'"}' \
+      https://overlay.s0er.ru/api/bus/send
 ```
