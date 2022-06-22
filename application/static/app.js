@@ -4,9 +4,11 @@ import { LowerThirdComponent } from './lib/lowers.component.js';
 import { ToolbarComponent } from './lib/toolbar.component.js';
 import { OBS_ROOM, CHAT_ROOM, SYSTEM_ROOM, LOWERS_ROOM } from './consts.js';
 import { ScreenComponent } from './lib/screen.component.js';
+import { LoginComponent } from './lib/login.component.js';
 
 class Application {
-  constructor() {
+  constructor(token) {
+    this.token = token;
     const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
     this.tabs = {};
     this.screen = new ScreenComponent();
@@ -62,8 +64,15 @@ class Application {
   initTabs() {
     this.tabs.chat = this.chat = new ChatComponent();
     this.tabs.lowerThird = this.lowerThird = new LowerThirdComponent();
+    this.tabs.login = this.login = new LoginComponent();
+
+    this.login.on('oauth', async () => {
+      const url = await api.auth.google();
+      this.login.oAuthLogin(url);
+    });
 
     const toolbar = this.toolbar = new ToolbarComponent([
+      { id: 'login', 'title': 'Login' },
       { id: 'chat', 'title': 'Chat' },
       { id: 'lowerThird', 'title': 'Lower Thirds' },
     ]);
@@ -73,7 +82,7 @@ class Application {
       this.activateTab(id);
     });
 
-    this.activateTab('chat');
+    this.activateTab('login');
   }
 
   send(data) {
@@ -84,16 +93,18 @@ class Application {
 }
 
 window.addEventListener('load', async () => {
-  window.application = new Application();
+  const token = localStorage.getItem('token');
+  window.application = new Application(token);
   window.api = window.application.metacom.api;
   await application.metacom.load('auth', 'bus');
 
   try {
-    const token = localStorage.getItem('token');
+
     const result = await api.auth.signin({ token });
 
     if (result.status === 'logged') {
       console.log('User logged in ', result.user);
+      application.login = new LoginComponent({ ...result.user, token });
       application.startBus();
       api.bus.send({
         room: OBS_ROOM,
@@ -103,8 +114,8 @@ window.addEventListener('load', async () => {
 
     }
   } catch (e) {
-    alert('Access forbiden');
-    console.error('Access forbiden', e.message);
+    //    const url = await api.auth.google();
+    //    application.login.oAuthLogin(url);
   }
 
 });

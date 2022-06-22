@@ -3,4 +3,5 @@ node_modules
 *.log
 *.done
 *.pem
+.env
 .DS_Store

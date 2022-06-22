@@ -15,7 +15,7 @@
     domain.auth.session[token] = data;
   },
 
-  startSession(token, data, fields = {}) {
+  startSession(token, data) {
     domain.auth.session[token] = data;
   },
 
@@ -30,7 +30,15 @@
   async registerUser(login, hash) {
     domain.auth.user = { login, hash };
   },
-
+  async createJWT(email) {
+    return npm.jsonwebtoken.sign(
+      {
+        email,
+        'role': 'WORKSHOP',
+        'iat': Math.floor(new Date().getTime() / 1000),
+        'exp': Math.floor(new Date().getTime() / 1000) + 3600 * 24 * 1000
+      }, config.jwt.secret);
+  },
   async checkJWT(token) {
     token = (token + '').replace(/[\n\r]*/g, '');
     try {
@@ -40,7 +48,7 @@
       );
       return user;
     } catch (e) {
-	console.log(e);
+      console.log(e);
       throw new Error('No access granted', 403);
     }
   }
