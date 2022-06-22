@@ -1,3 +1,5 @@
 'use strict';
-require('dotenv').config();
+if (!process.env.googleClientId) {
+  require('dotenv').config();
+}
 require('impress');
