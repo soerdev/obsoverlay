@@ -370,3 +370,86 @@
   #animation-5 > div:nth-child(3) div {
     animation-name: animation-5-text-title;
   }
+
+
+
+  /** donate */
+
+
+  .jt {
+    position: relative;
+    font-size: 10vmin;
+    text-transform: uppercase;
+    font-display: swap;
+    text-shadow: 0 0 10px rgb(179, 77, 242);
+    color: rgb(182, 117, 247);
+  }
+
+  
+  .jt__row {
+    display: block;
+  } 
+  .jt__row:nth-child(1) {
+    clip-path: polygon(-10% 75%, 110% 75%, 110% 110%, -10% 110%);
+  }
+  .jt__row:nth-child(2) {
+    clip-path: polygon(-10% 50%, 110% 50%, 110% 75.3%, -10% 75.3%);
+  }
+  .jt__row:nth-child(3) {
+    clip-path: polygon(-10% 25%, 110% 25%, 110% 50.3%, -10% 50.3%);
+  }
+  .jt__row:nth-child(4) {
+    clip-path: polygon(-10% 0%, 110% 0%, 110% 25.3%, -10% 25.3%);
+  }
+  
+  .jt__row.jt__row--sibling {
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none;
+    witdh: 800px;
+  }
+  
+  .jt__text {
+    display: block;
+    transform-origin: bottom left;
+    animation: moveIn 4s 0s cubic-bezier(0.36, 0, 0.06, 1) alternate both;
+  }
+
+  .jt__row:nth-child(1) .jt__text {
+    transform: translateY(-0.1em);
+  }
+  .jt__row:nth-child(2) .jt__text {
+    transform: translateY(-0.3em) scaleY(1.1);
+  }
+  .jt__row:nth-child(3) .jt__text {
+    transform: translateY(-0.5em) scaleY(1.2);
+  }
+  .jt__row:nth-child(4) .jt__text {
+    transform: translateY(-0.7em) scaleY(1.3);
+  }
+  .jt__row:nth-child(5) .jt__text {
+    transform: translateY(-0.9em) scaleY(1.4);
+  }
+  .jt__row:nth-child(6) .jt__text {
+    transform: translateY(-1.1em) scaleY(1.5);
+  }
+  
+  @keyframes moveIn {
+    50%,
+    100% {
+      transform: translateY(0em);
+    }
+    0% {
+      opacity: 0;
+      filter: blur(10px);
+    }
+    95% {
+      opacity: 1;
+      filter: blur(0px);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  

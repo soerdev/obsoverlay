@@ -2,9 +2,12 @@ import { Metacom } from './metacom.js';
 import { ChatComponent } from './lib/chat.component.js';
 import { LowerThirdComponent } from './lib/lowers.component.js';
 import { ToolbarComponent } from './lib/toolbar.component.js';
-import { OBS_ROOM, CHAT_ROOM, SYSTEM_ROOM, LOWERS_ROOM } from './consts.js';
+import {
+  OBS_ROOM,
+  CHAT_ROOM, SYSTEM_ROOM, LOWERS_ROOM, DONATE_ROOM } from './consts.js';
 import { ScreenComponent } from './lib/screen.component.js';
 import { LoginComponent } from './lib/login.component.js';
+import { DonateComponent } from './lib/donate.component.js';
 
 class Application {
   constructor(token) {
@@ -23,9 +26,16 @@ class Application {
         api.bus.send({ room: OBS_ROOM, message: { comment }, token });
       });
 
+    this.donate.on('message',
+      (comment) => {
+        const token = localStorage.getItem('token');
+        api.bus.send({ room: OBS_ROOM, message: { comment }, token });
+      });
+
     api.bus.subscribe({ room: OBS_ROOM });
     api.bus.subscribe({ room: CHAT_ROOM });
     api.bus.subscribe({ room: SYSTEM_ROOM });
+    api.bus.subscribe({ room: DONATE_ROOM });
     api.bus.subscribe({ room: LOWERS_ROOM });
     api.bus.on('message', (data) => {
       switch (data.room) {
@@ -36,6 +46,11 @@ class Application {
 
       case CHAT_ROOM:
         this.chat.addMessage(data);
+        break;
+
+      case DONATE_ROOM:
+        this.donate.reciveDonate(data.message);
+        this.screen.donate(data, this.donate.getTotalDonates());
         break;
 
       case SYSTEM_ROOM:
@@ -63,6 +78,7 @@ class Application {
 
   initTabs() {
     this.tabs.chat = this.chat = new ChatComponent();
+    this.tabs.donate = this.donate =  new DonateComponent();
     this.tabs.lowerThird = this.lowerThird = new LowerThirdComponent();
     this.tabs.login = this.login = new LoginComponent();
 
@@ -75,6 +91,7 @@ class Application {
       { id: 'login', 'title': 'Login' },
       { id: 'chat', 'title': 'Chat' },
       { id: 'lowerThird', 'title': 'Lower Thirds' },
+      { id: 'donate', 'title': 'Donates' },
     ]);
 
     toolbar.template.appendTo('toolbar');

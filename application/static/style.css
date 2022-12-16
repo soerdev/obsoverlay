@@ -6,7 +6,7 @@
     --primary-clr:#000000;
     --primary-font-clr:#000000;
     --primary-comment-clr:#000000;
-    --primary-text-stroke: #9e2a00;
+    --primary-text-stroke: #5d0068;
     --text-clr:#C8A080;
   
     --form-input-background: #fff;
@@ -15,6 +15,9 @@
     --button-color: #fff;
     --text-input-color: #333;
 
+
+    --widget-background: rgba(0, 0, 0, 0.7);
+    --widget-font-clr: white;
 
     --app-background: rgb(226, 226, 226);
     --app-content-background: rgb(248, 248, 250);
@@ -46,6 +49,10 @@
     height: 100%;
     overflow: hidden;
   }
+  
+
+
+  
 
   .comments {
     position: relative;
@@ -112,18 +119,105 @@
   .welcome { 
     flex: 1 1 10em;
   }
-  .donate {
-    flex: 3 3 20em;
-    
-  }
-  
-  .welcome, .donate {
-    padding: 0 1em;
-  }
-  
-  
 
   
 .inactive {
     display: none;
 }
+
+/**
+DONATE
+*/
+
+.donate-progress {
+  position: absolute;
+  display: flex;
+  top: 50px;
+  right: 50px;
+  flex: 1 1 auto;
+  background-color: var(--widget-background);
+  color: var(--widget-font-clr);
+  font-size: 2em;
+  padding: 1em;
+  z-index: 1000;
+}
+
+.donate-recive {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  margin-left: -210px;
+  z-index: 10000;
+}
+
+.donate_message {
+  font-size: 3em;
+  color: var(--primary-comment-clr);
+  -webkit-text-stroke: var(--primary-text-stroke) 2px;
+  text-align: center;
+  font-weight: bold;
+
+}
+
+
+/**
+PROGRESS BAR
+*/
+
+.container {
+  width: 420px;
+  text-align: center;
+}
+
+.container .progress {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.progress {
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25),
+    0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 2px rgba(114, 114, 114, 0.25),
+    0 1px rgba(255, 255, 255, 0.08);
+}
+
+.progress-bar {
+  height: 32px;
+  border-radius: 4px;
+  background-image: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.05)
+  );
+  background-image: -moz-linear-gradient(
+    top,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.05)
+  );
+  background-image: -o-linear-gradient(
+    top,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.05)
+  );
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.05)
+  );
+  -webkit-transition: 0.4s linear;
+  -moz-transition: 0.4s linear;
+  -o-transition: 0.4s linear;
+  transition: 0.4s linear;
+  -webkit-transition-property: width, background-color;
+  -moz-transition-property: width, background-color;
+  -o-transition-property: width, background-color;
+  transition-property: width, background-color;
+  -webkit-box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.25),
+    inset 0 1px rgba(173, 173, 173, 0.1);
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.25),
+    inset 0 1px rgba(119, 119, 119, 0.1);
+}
+  

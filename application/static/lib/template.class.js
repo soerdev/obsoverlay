@@ -28,7 +28,7 @@ export class Template {
   }
 
   getTarget(targetClassName, defaultTarget = document.body) {
-    return document.getElementsByClassName(targetClassName)[0] ||
+    return defaultTarget.getElementsByClassName(targetClassName)[0] ||
       defaultTarget;
 
   }
