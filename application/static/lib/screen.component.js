@@ -46,14 +46,14 @@ export class ScreenComponent extends Component {
     this.delayClear();
   }
 
-  donate(data, totalDonates) {
+  donate(amount, totalDonates) {
     this.reciveDonateTemplate.html('');
     this.donateProgress.html('');
 
-    if (data.message?.amount) {
+    if (amount > 0) {
       (new ReciveDonate1(
-        data.message.amount,
-        data.message.donater)).appendTo(this.reciveDonateTemplate);
+        amount,
+        '')).appendTo(this.reciveDonateTemplate);
     }
 
     if (totalDonates >= 0) {

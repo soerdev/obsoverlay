@@ -1,66 +1,50 @@
-import { Metacom } from './metacom.js';
 import { ChatComponent } from './lib/chat.component.js';
 import { LowerThirdComponent } from './lib/lowers.component.js';
 import { ToolbarComponent } from './lib/toolbar.component.js';
 import {
   OBS_ROOM,
-  CHAT_ROOM, SYSTEM_ROOM, LOWERS_ROOM, DONATE_ROOM } from './consts.js';
-import { ScreenComponent } from './lib/screen.component.js';
+  CHAT_ROOM, SYSTEM_ROOM, DONATE_ROOM } from './consts.js';
 import { LoginComponent } from './lib/login.component.js';
-import { DonateComponent } from './lib/donate.component.js';
+import { DonateMessageComponent } from './lib/donate.component.js';
+import { Application } from './core/application.js';
 
-class Application {
+class AdminApplication extends Application  {
   constructor(token) {
+    super();
     this.token = token;
-    const protocol = location.protocol === 'http:' ? 'ws' : 'wss';
     this.tabs = {};
-    this.screen = new ScreenComponent();
     this.initTabs();
-    this.metacom = Metacom.create(`${protocol}://${location.host}/api`);
   }
 
   startBus() {
+    super.startBus();
     this.chat.on('message',
       (comment) => {
         const token = localStorage.getItem('token');
         api.bus.send({ room: OBS_ROOM, message: { comment }, token });
       });
 
-    this.donate.on('message',
+    this.donateMessages.on('message',
       (comment) => {
-        const token = localStorage.getItem('token');
-        api.bus.send({ room: OBS_ROOM, message: { comment }, token });
+        this.send({ room: OBS_ROOM, message: { comment } });
       });
 
-    api.bus.subscribe({ room: OBS_ROOM });
+
     api.bus.subscribe({ room: CHAT_ROOM });
     api.bus.subscribe({ room: SYSTEM_ROOM });
-    api.bus.subscribe({ room: DONATE_ROOM });
-    api.bus.subscribe({ room: LOWERS_ROOM });
+
     api.bus.on('message', (data) => {
       switch (data.room) {
-
-      case OBS_ROOM:
-        this.screen.obsComment(data);
-        break;
-
       case CHAT_ROOM:
         this.chat.addMessage(data);
         break;
 
       case DONATE_ROOM:
-        this.donate.reciveDonate(data.message);
-        this.screen.donate(data, this.donate.getTotalDonates());
+        this.donateMessages.addMessage(data.message);
         break;
 
       case SYSTEM_ROOM:
         console.log('OBS Ping');
-        break;
-      case LOWERS_ROOM:
-        this.screen.lowerThird(
-          data.message.id,
-          data.message.title,
-          data.message.subtitle);
         break;
       }
     });
@@ -78,7 +62,10 @@ class Application {
 
   initTabs() {
     this.tabs.chat = this.chat = new ChatComponent();
-    this.tabs.donate = this.donate =  new DonateComponent();
+
+    this.tabs.donateMessages =
+    this.donateMessages =  new DonateMessageComponent();
+
     this.tabs.lowerThird = this.lowerThird = new LowerThirdComponent();
     this.tabs.login = this.login = new LoginComponent();
 
@@ -91,7 +78,7 @@ class Application {
       { id: 'login', 'title': 'Login' },
       { id: 'chat', 'title': 'Chat' },
       { id: 'lowerThird', 'title': 'Lower Thirds' },
-      { id: 'donate', 'title': 'Donates' },
+      { id: 'donateMessages', 'title': 'Donates' },
     ]);
 
     toolbar.template.appendTo('toolbar');
@@ -111,7 +98,7 @@ class Application {
 
 window.addEventListener('load', async () => {
   const token = localStorage.getItem('token');
-  window.application = new Application(token);
+  window.application = new AdminApplication(token);
   window.api = window.application.metacom.api;
   await application.metacom.load('auth', 'bus');
 

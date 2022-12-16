@@ -1,4 +1,4 @@
-import { EventEmitter } from '/events.js';
+import { EventEmitter } from '../core/events.js';
 import { Template } from './template.class.js';
 
 export class Component extends EventEmitter {

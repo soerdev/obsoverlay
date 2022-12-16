@@ -1,38 +1,43 @@
+
 export class DonateService {
 
+
+
   constructor() {
+    this.totalAmount = 0;
+    this.donatesList = [];
   }
+
+
+
   reciveDonate(donate) {
     if (donate.command) {
       this.execCommand(donate.command, donate);
     }
 
     if (donate.amount) {
-      this.addTotalDonates(donate.amount);
+      this.addTotalAmount(donate.amount);
+      this.donatesList.push(donate);
     }
   }
 
   execCommand(command, params) {
     switch (command) {
     case 'reset':
-      this.setTotalDonates(params.value || 0);
+      this.setTotalAmount(params.value || 0);
     }
   }
 
+  setTotalAmount(amount) {
+    this.totalAmount = parseInt(amount, 10);
+  }
+
   getTotalDonates() {
-    return parseInt(localStorage.getItem('donate-amount'), 10) || 0;
+    return this.totalAmount;
   }
 
-  addTotalDonates(amount) {
-    let donateSum = this.getTotalDonates();
-    donateSum += parseInt(amount, 10);
-    this.setTotalDonates(donateSum);
-    return donateSum;
+  addTotalAmount(amount) {
+    this.totalAmount += parseInt(amount, 10);
+    return this.totalAmount;
   }
-
-  setTotalDonates(amount) {
-    localStorage.setItem('donate-amount', amount);
-  }
-
-
 }
