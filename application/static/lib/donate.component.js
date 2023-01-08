@@ -25,6 +25,7 @@ export class DonateMessageComponent extends Component {
   addMessage(donate) {
     if (donate.comment) {
       const messageText = [
+        `${donate.donater}`,
         `${donate.amount} ₽`,
         donate.comment].join(' ');
 
@@ -36,5 +37,11 @@ export class DonateMessageComponent extends Component {
     }
   }
 
+  async syncMessages() {
+    const donates = await application.donateService.loadDonateInfo();
+    donates.forEach((donate) => this.addMessage(donate));
+    application.donateService.resetByDonatesList();
+    return donates;
+  }
 
 }

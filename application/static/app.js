@@ -110,6 +110,7 @@ window.addEventListener('load', async () => {
       console.log('User logged in ', result.user);
       application.login = new LoginComponent({ ...result.user, token });
       application.startBus();
+      application.donateMessages.syncMessages();
       api.bus.send({
         room: OBS_ROOM,
         message: { comment: 'Система управления OBS запущена' },
