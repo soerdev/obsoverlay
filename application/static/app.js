@@ -25,8 +25,8 @@ class AdminApplication extends Application  {
       });
 
     this.donateMessages.on('message',
-      (comment) => {
-        this.send({ room: OBS_ROOM, message: { comment } });
+      (data) => {
+        this.send({ room: OBS_ROOM, message: data });
       });
 
 

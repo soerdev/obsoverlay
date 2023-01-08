@@ -37,4 +37,13 @@ export class TotalDonate1 extends Template {
   }
 }
 
-
+export class DonateMessageTemplate extends Template {
+  constructor(comment, donater, amount) {
+    super('message-container');
+    this.html(`<div class="message">
+    		    <div>${donater} (${amount}₽)</div>
+                    <div class="comment">${comment}</div>
+                </div>
+    `);
+  }
+}

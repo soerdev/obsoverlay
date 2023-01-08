@@ -1,4 +1,4 @@
-import { ChatMessageTemplate } from '../templates/chat-message.template.js';
+import { DonateMessageTemplate } from '../templates/donate.template.js';
 import { Component } from './component.class.js';
 import { Button } from '../templates/button.template.js';
 
@@ -24,15 +24,12 @@ export class DonateMessageComponent extends Component {
 
   addMessage(donate) {
     if (donate.comment) {
-      const messageText = [
-        `${donate.donater}`,
-        `${donate.amount} ₽`,
-        donate.comment].join(' ');
-
-      const message = new ChatMessageTemplate(
-        messageText
+      const message = new DonateMessageTemplate(
+        donate.comment,
+        donate.donater,
+	donate.amount
       );
-      message.action(() => this.emit('message', messageText));
+      message.action(() => this.emit('message', donate));
       message.appendTo(this.template.tpl);
     }
   }

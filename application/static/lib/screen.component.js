@@ -1,4 +1,4 @@
-import { ReciveDonate1, TotalDonate1 } from '../templates/donate.template.js';
+import { DonateMessageTemplate, ReciveDonate1, TotalDonate1 } from '../templates/donate.template.js';
 import { LowerThird1,
   LowerThird2,
   LowerThird3,
@@ -74,6 +74,17 @@ export class ScreenComponent extends Component {
     `);
     this.delayClear();
   }
+
+
+  obsDonate(data) {
+    this.template.html(``);
+    const wrapper = new Template('message-body')
+    const donate =  new DonateMessageTemplate(data.message.comment, data.message.donater, data.message.amount);
+    donate.appendTo(wrapper);
+    wrapper.appendTo(this.template);
+    this.delayClear();
+  }
+
 
   delayClear()  {
     if (this.timeoutId) {

@@ -24,7 +24,8 @@ export class DonateService {
 
   loadDonateInfo() {
     return new Promise((resolve, reject) => {
-     getJSON('https://donate.s0er.ru/donate', (status, data) => {
+    getJSON('https://donate.s0er.ru/donate', (status, data) => {
+//  getJSON('http://localhost:3000/donate', (status, data) => {
        if (status === 200 && data.donates) {
           this.donatesList = [];
           data.donates.forEach((d) => this.donatesList.push(d));

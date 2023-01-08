@@ -21,7 +21,11 @@ export class Application {
     api.bus.on('message', (data) => {
       switch (data.room) {
       case OBS_ROOM:
-        this.screen.obsComment(data);
+	      if (data.message.amount && data.message.donater) {
+		      this.screen.obsDonate(data);
+	      } else {
+	       this.screen.obsComment(data);
+	      }
         break;
       case DONATE_ROOM:
         this.donateService.reciveDonate(data.message);
