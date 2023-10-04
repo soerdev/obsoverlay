@@ -1,3 +1,4 @@
+import { ChatMessageTemplate } from '../templates/chat-message.template.js';
 import { DonateMessageTemplate, ReciveDonate1, TotalDonate1 } from '../templates/donate.template.js';
 import { LowerThird1,
   LowerThird2,
@@ -64,14 +65,11 @@ export class ScreenComponent extends Component {
   }
 
   obsComment(data) {
-
-    this.template.html(`
-    <div class="message-body">
-      <p>
-        ${data.message.comment}
-      </p>
-    </div>
-    `);
+    this.template.html(``);
+    const wrapper = new Template('message-body')
+    const comment =  new ChatMessageTemplate(data.message.comment, data.message.author);
+    comment.appendTo(wrapper);
+    wrapper.appendTo(this.template);
     this.delayClear();
   }
 

@@ -2,6 +2,7 @@ import { Metacom } from './metacom.js';
 import { OBS_ROOM, LOWERS_ROOM, DONATE_ROOM } from '../consts.js';
 import { ScreenComponent } from '../lib/screen.component.js';
 import { DonateService } from '../lib/donate.service.js';
+import { ChatService } from '../lib/chat.service.js';
 
 export class Application {
 
@@ -10,6 +11,7 @@ export class Application {
     this.metacom = Metacom.create(`${protocol}://${location.host}/api`);
 
     this.donateService = new DonateService();
+    this.chatService = new ChatService();
 
     this.screen = new ScreenComponent();
   }

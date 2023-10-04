@@ -19,9 +19,9 @@ class AdminApplication extends Application  {
   startBus() {
     super.startBus();
     this.chat.on('message',
-      (comment) => {
+      (data) => {
         const token = localStorage.getItem('token');
-        api.bus.send({ room: OBS_ROOM, message: { comment }, token });
+        api.bus.send({ room: OBS_ROOM, message: data, token });
       });
 
     this.donateMessages.on('message',
