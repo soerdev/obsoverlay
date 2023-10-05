@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <style>
+      textarea {
+        display: block;
+        width: 20rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="settings"></div>
+    <div class="result"></div>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+    /**
+   * Sample JavaScript code for youtube.liveBroadcasts.list
+   * See instructions for running APIs Explorer code samples locally:
+   * https://developers.google.com/explorer-help/code-samples#javascript
+   */
+    if (!localStorage.getItem('googleClientId')) {
+      localStorage.setItem('googleClientId', prompt('Google client id'));
+    }
+    if (!localStorage.getItem('key')) {
+      localStorage.setItem('key', prompt('Google api key'));
+    }
+
+
+    let streams = [];
+    const settings = document.getElementsByClassName('settings')[0];
+    const in1 = document.createElement('textarea');
+    const in2 = document.createElement('textarea')
+
+    in1.value = localStorage.getItem('googleClientId');
+    in2.value = localStorage.getItem('key');
+
+    settings.appendChild(in1);
+    settings.appendChild(in2);
+
+    function render() {
+      const result = document.getElementsByClassName('result');
+
+      if (streams.length > 0) {
+        console.log(streams);
+        result[0].innerHTML = '';
+        streams.forEach(stream => {
+            const element = document.createElement('div');
+            element.onclick = () => {localStorage.setItem('liveChatId', stream.snippet.liveChatId)};
+            element.innerHTML = '<a href="javascript:void(0)">' + stream.snippet.title + '</a>';
+            result[0].appendChild(element);
+        });
+      }
+    }
+
+    function authenticate() {
+      localStorage.setItem('googleClientId', in1.value);
+      localStorage.setItem('key', in2.value);
+      return gapi.auth2.getAuthInstance()
+        .signIn({scope: "https://www.googleapis.com/auth/youtube.readonly"})
+        .then(function() { console.log("Sign-in successful"); },
+          function(err) { console.error("Error signing in", err); });
+    }
+    function loadClient() {
+      gapi.client.setApiKey(localStorage.getItem('key'));
+      return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+        .then(function() { console.log("GAPI client loaded for API"); },
+          function(err) { console.error("Error loading GAPI client for API", err); });
+    }
+    // Make sure the client is loaded and sign-in is complete before calling this method.
+    function execute() {
+      return gapi.client.youtube.liveBroadcasts.list({
+        "broadcastStatus": "active"
+      })
+        .then(function(response) {
+          // Handle the results here (response.result has the parsed body).
+          if (response.result && response.result.items) {
+            streams = response.result.items;
+          }
+
+          render();
+//          console.log("Response", response);
+        },
+          function(err) { console.error("Execute error", err); });
+    }
+
+
+    gapi.load("client:auth2", function() {
+      gapi.auth2.init({client_id: localStorage.getItem('googleClientId')});
+    });
+    </script>
+    <button onclick="authenticate().then(loadClient)">authorize and load</button>
+    <button onclick="execute()">execute</button>
+  </body>
+</html>

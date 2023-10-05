@@ -15,7 +15,9 @@ export class ChatComponent extends Component {
   }
 
   initContent() {
-    const in1 = document.createElement('input');
+    this.liveChatInfo = document.createElement('div');
+    this.template.tpl.appendChild(this.liveChatInfo);
+    /*    const in1 = document.createElement('input');
     const in2 = document.createElement('input');
     this.in1 = in1;
     this.in2 = in2;
@@ -24,7 +26,7 @@ export class ChatComponent extends Component {
     this.template.tpl.append(in2);
     (new Button('Сохранить', () => {
           this.saveParams(in1.value, in2.value);
-    })).appendTo(this.template);
+    })).appendTo(this.template);*/
   }
 
   initAutoUpdate() {
@@ -38,23 +40,37 @@ export class ChatComponent extends Component {
   }
 
   loadParams() {
-      this.in1.value = localStorage.getItem('liveChatId') ?? '';
-      this.in2.value = localStorage.getItem('key') ?? '';
+    const liveChatId = localStorage.getItem('liveChatId') ?? '';
+    const key = localStorage.getItem('key') ?? '';
+    if( !liveChatId || !key) {
+      this.liveChatInfo.innerHTML = 'Чат не подключен. <a href="/streams.html">Подключить</a>';
+    } else {
+      this.liveChatInfo.innerHTML = 'LiveChat <span style="color:orange">wait</span>';
+    }
+
   }
 
   saveParams(liveChatId, key) {
-      localStorage.setItem('liveChatId', liveChatId);
-      localStorage.setItem('key', key);
+    localStorage.setItem('liveChatId', liveChatId);
+    localStorage.setItem('key', key);
   }
   async syncMessages() {
     const liveChatId = localStorage.getItem('liveChatId');
     const key = localStorage.getItem('key');
 
     if (key && liveChatId) {
-      const messages = await application.chatService.loadChatInfo(liveChatId, key);
-      messages.forEach((data) => this.addMessage(data));
-      return messages;
+      try {
+        const messages = await application.chatService.loadChatInfo(liveChatId, key);
+
+        this.liveChatInfo.innerHTML = 'LiveChat <span style="color: green;">Ok</span>';
+        messages.forEach((data) => this.addMessage(data));
+        return messages;
+      } catch(e) {
+        console.error(e);
+        localStorage.removeItem('liveChatId');
+      }
     }
+    this.liveChatInfo.innerHTML = 'Чат не подключен. <a href="/streams.html">Подключить</a>';
     return [];
   }
 

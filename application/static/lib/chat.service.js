@@ -38,7 +38,7 @@ export class ChatService {
           }));
           resolve(this.messagesList);
         } else {
-          reject([]);
+          reject(data);
         }
       });
     });
