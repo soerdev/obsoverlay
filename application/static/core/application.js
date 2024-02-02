@@ -3,6 +3,7 @@ import { OBS_ROOM, LOWERS_ROOM, DONATE_ROOM } from '../consts.js';
 import { ScreenComponent } from '../lib/screen.component.js';
 import { DonateService } from '../lib/donate.service.js';
 import { ChatService } from '../lib/chat.service.js';
+import { ObsService } from '../lib/obs.service.js';
 
 export class Application {
 
@@ -12,6 +13,7 @@ export class Application {
 
     this.donateService = new DonateService();
     this.chatService = new ChatService();
+    this.obsService = new ObsService();
 
     this.screen = new ScreenComponent();
   }
@@ -28,13 +30,20 @@ export class Application {
 	      } else {
 	       this.screen.obsComment(data);
 	      }
-        break;
+
+        if (this.obsService.isObs()) {
+            this.obsService.actionFromComment(data.message.comment);
+        }
+
+
+       break;
       case DONATE_ROOM:
         this.donateService.reciveDonate(data.message);
         this.screen.donate(
           data.message.amount,
           this.donateService.getTotalDonates()
         );
+
         break;
 
       case LOWERS_ROOM:
